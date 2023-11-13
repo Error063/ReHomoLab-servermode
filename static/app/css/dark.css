@@ -1,0 +1,33 @@
+body:not(.ql-fold){
+    background-color: rgba(0,0,0,0.9) !important;
+    color: white !important;
+}
+#right{
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+.postCard {
+    background-color: rgba(var(--personal-color), 0.2) !important;
+}
+.overlay-window{
+    background-color: rgb(49, 49, 49) !important;
+}
+.overlay-window-wrapper {
+    background-color: rgba(var(--personal-color), 0.0) !important;
+}
+.loading_outter{
+    background-color: black !important;
+}
+.loading {
+    background-color: rgba(255, 255, 255, 0) !important;
+}
+.menu, .submenu, .mdui-snackbar{
+    color: #fff !important;
+    background: #323232 !important;
+}
+.mdui-dialog{
+    color: #fff !important;
+    background-color: #323232 !important;
+}
+.mdui-dialog-content{
+    color: #fff !important;
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <link rel="stylesheet" href="{{ url_for('static',filename='mdui/css/mdui.min.css') }}" />
+    <script src="{{ url_for('static',filename='mdui/js/mdui.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='jquery/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='viewerjs/js/viewer.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='viewerjs/css/viewer.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='app/css/mys_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='app/css/main.css') }}">
+    <script src="{{ url_for('static',filename='geetest-sdk/js/gt.0.4.9.js') }}"></script>
+    <title>homolab</title>
+</head>
+<body style="margin: 0;">
+<div class="main-body">
+    <div id="topbar">
+        <div class="mdui-progress topbar-progress-bar">
+            <div class="mdui-progress-indeterminate topbar-progress"></div>
+        </div>
+        <div class="topbar-left">
+            <div id="forum-logo"></div>
+        </div>
+        <div class="topbar-right">
+            <button class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">access_time</i></button>
+            <button class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">settings</i></button>
+        </div>
+    </div>
+    <div id="container">
+        <div id="left">
+            <div id="recommend" class="forum mdui-ripple">
+                <span>推荐</span>
+            </div>
+            <div id="official" class="forum mdui-ripple">
+                <span>官方资讯</span>
+            </div>
+            <div id="forums"></div>
+            <div class="user-info">
+                <div class="user-avatar"></div>
+                <div class="user-info-text">
+                    <span class="user-nickname"></span>
+                    <br>
+                    <span class="user-uid"></span>
+                </div>
+            </div>
+        </div>
+        <div id="right">
+            <div id="right-items"></div>
+        </div>
+    </div>
+    <div id="menu" class="menu">
+        <div class="menu__item" onclick="load_page('back')"><i
+                class="mdui-icon material-icons">arrow_back</i><span>返回</span></div>
+        <div class="menu__item" onclick="load_page('reload')"><i
+                class="mdui-icon material-icons">refresh</i><span>刷新</span></div>
+{#        <div class="menu__item" onclick="load_page('home')"><i#}
+{#                class="mdui-icon material-icons">home</i><span>分区主页</span></div>#}
+        <div class="menu__item ">切换分区 <span class="mdui-menu-item-more"></span>
+            <div id="submenu" class="submenu switch-game"></div>
+        </div>
+    </div>
+    <div id="account-menu" class="menu">
+        <div class="menu__item" onclick=""><i class="mdui-icon material-icons">refresh</i><span>刷新登录状态</span>
+        </div>
+        <div class="menu__item logout" style="color: red"><i class="mdui-icon material-icons">exit_to_app</i><span>退出登录</span>
+        </div>
+    </div>
+    <div id="post-menu" class="menu">
+        <div class="menu__item" id="copy" onclick=""><i class="mdui-icon material-icons" id="copy-icon">content_copy</i><span>复制文章链接</span>
+        </div>
+        <div class="menu__item" id="upvote" onclick=""><i class="mdui-icon material-icons" id="upvote-icon">thumb_up</i><span
+                id="upvote-status">点赞</span></div>
+        <div class="menu__item" id="collect" onclick=""><i class="mdui-icon material-icons"
+                                                           id="collect-icon">star</i><span
+                id="collect-status">收藏</span></div>
+    </div>
+    <div class="overlay loading_outter">
+        <div class="loading">
+            <div class="mdui-spinner mdui-spinner-colorful spinner"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+let network_failed = false
+let xhr_test = new XMLHttpRequest();
+xhr_test.open('get', '/app-api/connection_test')
+xhr_test.onreadystatechange = function () {
+    if (xhr_test.responseText !== 'true'){
+        network_failed = true
+    }
+}
+xhr_test.send()
+if (!network_failed) {
+    document.write(`<script src='{{ url_for('static',filename='app/js/main.js') }}?t=${new Date().getTime()}'><\/script>`)
+} else {
+    document.getElementsByClassName('topbar-progress-bar')[0].setAttribute('style', 'visibility: hidden;');
+    mdui.snackbar({
+        message: '<span style="color: red;font-weight: bold;font-size: 20px">网络连接失败！</span>',
+        position: 'right-top',
+        timeout: 0
+    });
+}
+</script>
+</html>
