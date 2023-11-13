@@ -827,6 +827,9 @@ window.addEventListener('load', (e) => {
                 document.body.classList.add('mdui-theme-layout-dark');
                 break;
         }
+        if(app_config.demo_mode){
+            mdui.alert("体验模式下部分功能受限！", "提示", () => {}, {confirmText: "好"});
+        }
     })
 
     apiConnect(current_user_api).then((res) => {
